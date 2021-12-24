@@ -1,0 +1,11 @@
+{
+  "name": "solidity-course",
+  "version": "1.0.0",
+  "scripts": {
+    "compile": "truffle compile",
+    "deploy": "truffle deploy",
+    "migrate": "truffle migrate"
+  },
+  "author": "",
+  "license": "ISC"
+}
