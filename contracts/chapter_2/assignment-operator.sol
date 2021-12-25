@@ -14,6 +14,8 @@ pragma solidity >= 0.7.0 < 0.9.0;
 
   - All other assignments to storage always copy. Examples for this case are assignments to state variables or to members of local variables of storage struct type, even if the local variable itself is just a reference.
 
+  NOTE: More information in the docs https://docs.soliditylang.org/en/v0.8.10/types.html.
+
  */
 
 contract AssignmentOperator {

@@ -14,6 +14,8 @@ pragma solidity >= 0.7.0 < 0.9.0;
 
   Public: Can be referenced from outside as well as inside the contract.
 
+  NOTE: More information in the docs https://docs.soliditylang.org/en/v0.8.10/types.html.
+
  */
 
 contract AccessModifiers {
@@ -29,7 +31,7 @@ contract AccessModifiers {
 
   function _x() private returns(uint) {
     data += increment; // Changes the state variable by adding the private increment when called!
-    // NOTE: Mutating contracts cause transactions and gas fees.
+    // NOTE: Mutating a contract's state variable cause transactions and gas fees.
     return data;
   }
 

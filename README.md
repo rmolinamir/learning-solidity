@@ -1,5 +1,23 @@
 # README
 
+## Blockchain
+
+## What is the most basic way of understanding what a block chain is?
+
+We're going to be working a lot with with test networks on the theory and block chain. We're interacting with the block chain with smart contracts, with applications.
+
+In its most basic form, a blockchain is an auditable database. It's essentially it's our back end. More specifically, a part of. It's a database which is storing our transactions, and it is a database in which data can only be added on.
+
+We also cannot remove those transactions or change them in any way. Now, we do update contracts and we can update our smart contracts and interact with them. But when we migrate our data, we are effectively updating to new addresses with our smart contract. For example, when using the Truffle framework and updating and running test suites.
+
+The point here is that we can be periodically add data on the blockchain, and the data that we add are called blocks. It's a series of blocks that are chained together, and these blocks serve as a public auditable database for which we can build our applications upon.
+
+## Solidity
+
+### Cheatsheet
+
+[Official Solidity cheatsheet hosted in the solidity docs website](https://docs.soliditylang.org/en/v0.8.10/cheatsheet.html#);
+
 ## Truffle
 
 ### Migrations

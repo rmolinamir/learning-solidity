@@ -3,6 +3,7 @@
 pragma solidity >= 0.7.0 < 0.9.0;
 
 /* 
+
   While writing a program, there may be a situation when you need to adopt one out of a given set of paths. 
   In such cases, you need to use conditional statements that allow your program to make correct decisions and perform right actions.
 
@@ -11,6 +12,9 @@ pragma solidity >= 0.7.0 < 0.9.0;
 
   if...else statement: The 'if...else' statement is the next form of control statement that allows 
   Solidity to execute statements in a more controlled way.
+
+  NOTE: More information in the docs https://docs.soliditylang.org/en/v0.8.10/types.html.
+
 */
 
 contract DecisionMaking {
