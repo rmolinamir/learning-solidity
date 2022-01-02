@@ -55,3 +55,9 @@ The `Migrations` contract stores (in `last_completed_migration`) a number that c
 So, as this `Migrations` contract stores the number of the last deployment script applied, Truffle will not run those scripts again. On the other hand, in the future, your app may need to have a modified, or new, contract deployed. For that to happen, you create a new script with an increased number that describes the steps that need to take place. Then, again, after they have run once, they will not run again.
 
 And yes, the last 2 lines are true Solidity. Look at [contract OwnedToken](http://solidity.readthedocs.io/en/latest/contracts.html#creating-contracts).
+
+## Thoughts
+
+- The blockchain doesn't capture the explicit intention of the end user (similar to CRUD APIs, e.g. Stripe).
+- Using the blockchain as a backend only makes sense as a generic subdomain.
+- Making the implicit explicit should happen in a core domain with an adapter/port pattern connected to the blockchain subdomain.
