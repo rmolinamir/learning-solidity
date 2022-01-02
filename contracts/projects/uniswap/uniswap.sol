@@ -4,51 +4,6 @@ pragma solidity >= 0.7.0 < 0.9.0;
 
 /**
 
-  Interfaces 
-
-  Interfaces are similar to abstract contracts and are created using interface keyword. 
-  Following are the key characteristics of an interface.
-
-  - Interface can not have any function with implementation.
-  - Functions of an interface can be only of type external.
-  - Interface can not have constructor.
-  - Interface can not have state variables.
-  - Interface can have enum, structs which can be accessed using interface name dot notation.
-
- */
-
-contract Counter {
-
-  uint public count;
-
-  function increment() external {
-    count += 1;
-  }
-
-}
-
-interface ICounter {
-
-  function count() external view returns(uint);
-
-  function increment() external;
-
-}
-
-contract Contract {
-
-  function incrementCounter(address counter) external {
-    ICounter(counter).increment();
-  }
-
-  function getCount(address counter) external view returns(uint) {
-    return ICounter(counter).count();
-  }
-
-}
-
-/**
-
   In Uniswap each Uniswap smart contract, or pair, manages a liquidity pool made up of reserves of two ERC-20 tokens.
 
   1. Create two interfaces which each hold separate function signatures which you must look up in the Solidity docs V2 
