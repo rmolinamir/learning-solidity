@@ -1,11 +1,13 @@
 {
-  "name": "solidity-101",
+  "name": "learning-solidity",
   "version": "1.0.0",
+  "license": "MIT.",
   "scripts": {
-    "compile": "truffle compile",
-    "deploy": "truffle deploy",
-    "migrate": "truffle migrate"
+    "clean": "npm run clean-dist && npm run clean-output",
+    "clean-deps": "rm -fr node_modules && rm -fr packages/*/node_modules && rm -f yarn.lock && rm -fr */**/yarn.lock && rm -f package-lock.json && rm -fr */**/package-lock.json",
+    "clean-dist": "rm -fr packages/*/*.tsbuildinfo && rm -fr packages/*/dist && rm -fr packages/*/.serverless",
+    "clean-incl-deps": "npm run clean && npm run clean-deps",
+    "clean-output": "rm -fr output && rm -fr */**/output"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {}
 }

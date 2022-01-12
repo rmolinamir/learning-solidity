@@ -106,7 +106,7 @@ contract NaiveCryptoToken {
 
     balances[wallet] += amount;
 
-    emit Debit(wallet, amount);
+    emit Credit(wallet, amount);
 
   }
 

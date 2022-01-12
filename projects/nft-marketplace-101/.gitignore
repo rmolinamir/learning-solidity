@@ -1,12 +1,4 @@
-
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# truffle/ethereum remix IDE compilations
-
-artifacts
-build
-abis
 
 # dependencies
 /node_modules
