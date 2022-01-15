@@ -34,8 +34,14 @@ require('ts-node').register({
 
 module.exports = {
 
+  description: 'NFT Marketplace Truffle Configuration',
+
   contracts_directory: './contracts/',
   contracts_build_directory: './abis/',
+
+  migrations_directory: './migrations/',
+
+  test_directory: './tests/',
 
   /**
    * Networks define how you connect to your ethereum client and let you set the

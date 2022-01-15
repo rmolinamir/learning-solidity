@@ -4,6 +4,6 @@
     "module": "commonjs",
     "moduleResolution": "node"
   },
-  "include": ["types", "test/**/*.ts"],
+  "include": ["contracts/types", "tests/contracts/**/*.ts"],
   "exclude": ["node_modules", "abis", "build", "cache"]
 }

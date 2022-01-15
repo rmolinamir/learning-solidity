@@ -27,16 +27,18 @@
     "web3": "1.6.1"
   },
   "devDependencies": {
-    "@typechain/truffle-v5": "^7.0.0",
+    "@typechain/truffle-v5": "7.0.0",
     "@types/chai": "4.3.0",
-    "@types/chai-as-promised": "^7.1.4",
+    "@types/chai-as-promised": "7.1.4",
+    "@types/faker": "5.5.9",
     "@types/jest": "27.4.0",
-    "@types/mocha": "^9.0.0",
+    "@types/mocha": "9.0.0",
     "@types/node": "16.11.19",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
-    "ts-node": "^10.4.0",
-    "typechain": "^7.0.0"
+    "faker": "5.5.3",
+    "ts-node": "10.4.0",
+    "typechain": "7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -48,7 +50,7 @@
     "contracts:migrate": "truffle migrate",
     "contracts:test": "truffle test",
     "contracts:test:cn": "npm run contracts:test -- --compile-none",
-    "contracts:types": "typechain --out-dir ./test/types/ --target=truffle-v5 'abis/*.json'",
+    "contracts:types": "typechain --out-dir ./contracts/types/ --target=truffle-v5 'abis/*.json'",
     "postcontracts:compile": "npm run contracts:types"
   },
   "eslintConfig": {

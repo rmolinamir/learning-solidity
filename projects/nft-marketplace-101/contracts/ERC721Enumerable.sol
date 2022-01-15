@@ -24,7 +24,6 @@ contract ERC721Enumerable is ERC721, IERC721Enumerable {
    */
   mapping(address => uint256[]) private owner_To_OwnerTokenIdList;
 
-
   /**
     Mapping from token ID to index of the owner tokens list.
     NOTE: Not being used.

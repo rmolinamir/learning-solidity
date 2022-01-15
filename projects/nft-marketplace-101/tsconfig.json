@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": ["src", "test", "types"],
+  "include": ["contracts/types", "src", "tests"],
   "exclude": ["node_modules", "abis", "build", "cache"]
 }
