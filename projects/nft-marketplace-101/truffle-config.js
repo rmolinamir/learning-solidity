@@ -21,7 +21,16 @@
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+// const mnemonic = fs.readFileSync('.secret').toString().trim();
+
+/**
+ * We have to register ts-node in our truffle-config.js.
+ * This will be required, so we can run migration files written in TypeScript.
+ */
+require('ts-node').register({
+  files: true,
+  project: './tsconfig.truffle.json'
+});
 
 module.exports = {
 
@@ -47,9 +56,9 @@ module.exports = {
     // options below to some value.
     //
     development: {
-      host: "127.0.0.1",     // Localhost (default: none)
+      host: '127.0.0.1',     // Localhost (default: none)
       port: 8545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
+      network_id: '*',       // Any network (default: none)
     },
 
     // Another network with more advanced options...
@@ -88,14 +97,14 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "^0.8.10",    // Fetch exact version from solc-bin (default: truffle's version)
-      // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
+      version: '^0.8.10',    // Fetch exact version from solc-bin (default: truffle's version)
+      // docker: true,        // Use '0.5.1' you've installed locally with docker (default: false)
       settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: true,
           runs: 200
         },
-        evmVersion: "byzantium"
+        evmVersion: 'byzantium'
       }
     }
   },
@@ -112,11 +121,11 @@ module.exports = {
   //
   // db: {
     // enabled: false,
-    // host: "127.0.0.1",
+    // host: '127.0.0.1',
     // adapter: {
-    //   name: "sqlite",
+    //   name: 'sqlite',
     //   settings: {
-    //     directory: ".db"
+    //     directory: '.db'
     //   }
     // }
   // }

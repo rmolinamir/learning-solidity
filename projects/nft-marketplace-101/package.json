@@ -8,10 +8,6 @@
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
-    "@types/jest": "27.4.0",
-    "@types/node": "16.11.19",
-    "@types/react": "17.0.38",
-    "@types/react-dom": "17.0.11",
     "antd": "4.18.3",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
@@ -30,14 +26,30 @@
     "web-vitals": "2.1.3",
     "web3": "1.6.1"
   },
+  "devDependencies": {
+    "@typechain/truffle-v5": "^7.0.0",
+    "@types/chai": "4.3.0",
+    "@types/chai-as-promised": "^7.1.4",
+    "@types/jest": "27.4.0",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "16.11.19",
+    "@types/react": "17.0.38",
+    "@types/react-dom": "17.0.11",
+    "ts-node": "^10.4.0",
+    "typechain": "^7.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "tsc -p tsconfig.prod.json && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "contracts:compile": "truffle compile",
     "contracts:console": "truffle console",
-    "contracts:migrate": "truffle migrate"
+    "contracts:migrate": "truffle migrate",
+    "contracts:test": "truffle test",
+    "contracts:test:cn": "npm run contracts:test -- --compile-none",
+    "contracts:types": "typechain --out-dir ./test/types/ --target=truffle-v5 'abis/*.json'",
+    "postcontracts:compile": "npm run contracts:types"
   },
   "eslintConfig": {
     "extends": [

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
 
+import './interfaces/IERC721Enumerable.sol';
 import './ERC721.sol';
 
 /**
@@ -8,13 +9,13 @@ import './ERC721.sol';
   @dev See https://eips.ethereum.org/EIPS/eip-721
   Note: the ERC-165 identifier for this interface is 0x780e9d63.
  */
-contract ERC721Enumerable is ERC721 {
+contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
   uint256[] private tokenList;
 
   /**
     Mapping from tokenId to index in tokenList.
-    NOTE: Not being used.
+    NOTE: Not being used in public methods.
    */
   mapping(uint256 => uint256) private tokenId_To_TokenListIndex;
 
@@ -30,29 +31,26 @@ contract ERC721Enumerable is ERC721 {
    */
   mapping(uint256 => uint256) private tokenId_To_OwnerTokenListIndex;
 
+  constructor() {
+
+    registerInterface(
+      bytes4(
+        keccak256('function totalSupply()')^
+        keccak256('function tokenOfOwnerByIndex(address, uint256)')^
+        keccak256('function tokenByIndex(uint256)')
+      )
+    );
+
+  }
+
 
   /**
     @notice Count NFTs tracked by this contract
     @return A count of valid NFTs tracked by this contract, where each one of
     them has an assigned and queryable owner not equal to the zero address
     */
-  function totalSupply() public view returns (uint256) {
+  function totalSupply() public view override returns (uint256) {
     return tokenList.length;
-  }
-
-  /**
-    @notice Enumerate valid NFTs
-    @dev Throws if `_index` >= `totalSupply()`.
-    @param _index A counter less than `totalSupply()`
-    @return The token identifier for the `_index`th NFT,
-    (sort order not specified)
-    */
-  function tokenByIndex(uint256 _index) external view returns (uint256) {
-
-    require(_index < totalSupply(), "Index can't be GTE the total supply.");
-
-    return tokenList[_index];
-
   }
 
   /**
@@ -64,13 +62,32 @@ contract ERC721Enumerable is ERC721 {
     @return The token identifier for the `_index`th NFT assigned to `_owner`,
     (sort order not specified)
     */
-  function tokenOfOwnerByIndex(address _owner, uint256 _index) external view returns (uint256) {
+  function tokenOfOwnerByIndex(address _owner, uint256 _index) external view override returns (uint256) {
 
     require(_index < balanceOf(_owner), "Index can't be GTE the balance of the owner's amount of NFTs.");
 
     return owner_To_OwnerTokenIdList[_owner][_index];
 
   }
+
+  /**
+    @notice Enumerate valid NFTs
+    @dev Throws if `_index` >= `totalSupply()`.
+    @param _index A counter less than `totalSupply()`
+    @return The token identifier for the `_index`th NFT,
+    (sort order not specified)
+    */
+  function tokenByIndex(uint256 _index) external view override returns (uint256) {
+
+    require(_index < totalSupply(), "Index can't be GTE the total supply.");
+
+    return tokenList[_index];
+
+  }
+
+  /**
+    ADDITIONAL FUNCTIONALITY
+   */
 
   /**
     Creation of NFTs (“minting”) and enumeration.
@@ -82,6 +99,10 @@ contract ERC721Enumerable is ERC721 {
     enumerate(tokenId);
 
   }
+
+  /**
+    HELPER METHODS
+   */
 
   /**
     Enumerates the token by:

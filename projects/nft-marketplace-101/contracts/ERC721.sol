@@ -1,18 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
 
+import './interfaces/IERC721.sol';
+import './ERC165.sol';
+
 /**
 
   [EIP-721: Non-Fungible Token Standard](https://eips.ethereum.org/EIPS/eip-721)
 
  */
-contract ERC721 {
+contract ERC721 is ERC165, IERC721 {
 
-  /**
-    TODO: Add indexed modifier definition from docs, it allows to index the event properties
-    to query them later
-   */
-  event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+  // NOTE: Inherited from IERC721.
+  // TODO: Add indexed modifier definition from docs, it allows to index the event properties
+  // to query them later
+  // event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+
+  // NOTE: Inherited from IERC721.
+  // event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
+
+  // NOTE: Inherited from IERC721.
+  // event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
 
   /**
     Allows us to check how many tokens are owned by an address.
@@ -29,27 +37,33 @@ contract ERC721 {
    */
   mapping(uint256 => address) private _tokenApprovals;
 
-  /**
-    @notice Count all NFTs assigned to an owner
-    @dev NFTs assigned to the zero address are considered invalid, and this
-    function throws for queries about the zero address.
-    @param _owner An address for whom to query the balance
-    @return The number of NFTs owned by `_owner`, possibly zero
-  */
-  function balanceOf(address _owner) public view addressIsNotNull(_owner) returns(uint256) {
+  constructor() {
+
+    registerInterface(
+      bytes4(
+        keccak256('function balanceOf(address)')^
+        keccak256('function ownerOf(uint256)')^
+        keccak256('function safeTransferFrom(address, address, uint256)')^
+        keccak256('function safeTransferFrom(address, address, uint256, bytes calldata)')^
+        keccak256('function transferFrom(address, address, uint256)')^
+        keccak256('function approve(address, uint256)')^
+        keccak256('function getApproved(uint256)')^
+        keccak256('function setApprovalForAll(address, bool)')^
+        keccak256('function isApprovedForAll(address, address)')
+      )
+    );
+
+  }
+
+  function balanceOf(address _owner) public view override
+    addressIsNotNull(_owner)
+  returns(uint256) {
 
     return _ownedTokensAmount[_owner];
 
   }
 
-  /**
-    @notice Find the owner of an NFT
-    @dev NFTs assigned to zero address are considered invalid, and queries
-    about them do throw.
-    @param _tokenId The identifier for an NFT
-    @return The address of the owner of the NFT
-  */
-  function ownerOf(uint256 _tokenId) public view returns(address) {
+  function ownerOf(uint256 _tokenId) public view override returns(address) {
 
     address owner = _tokenOwner[_tokenId];
 
@@ -59,16 +73,68 @@ contract ERC721 {
 
   }
 
-  /**
-    Checks if a tokenId is mapped to an existing owner.
-   */
-  function _exists(uint256 tokenId) internal view returns(bool) {
+  function safeTransferFrom(address from, address to, uint256 tokenId) external override {
+    revert('not implemented yet');
+  }
 
-    address owner = _tokenOwner[tokenId];
+  function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) external override {
+    revert('not implemented yet');
+  }
 
-    return owner == address(0);
+  function transferFrom(address _from, address _to, uint256 _tokenId) external override {
+
+    _transferFrom(_from, _to, _tokenId);
 
   }
+
+  function _transferFrom(address _from, address _to, uint256 _tokenId) internal
+    onlyApprovedOrOwnerOf(_tokenId)
+    addressIsNotNull(_to)
+  {
+
+    require(ownerOf(_tokenId) == _from, "Sender address does not own the token.");
+
+    _tokenOwner[_tokenId] = _to;
+    _ownedTokensAmount[_from] -= 1;
+    _ownedTokensAmount[_to] += 1;
+
+    emit Transfer(_from, _to, _tokenId);
+
+  }
+
+  function approve(address wallet, uint256 tokenId) public override
+    onlyApprovedOrOwnerOf(tokenId)
+  {
+
+    address owner = ownerOf(tokenId);
+
+    require(wallet != owner, "ERC721: Can't approve owner of the token.");
+
+    _tokenApprovals[tokenId] = wallet;
+
+    emit Approval(owner, wallet, tokenId);
+
+  }
+
+  function getApproved(uint256 tokenId) public view override returns (address) {
+
+    require(_exists(tokenId), "ERC721: Approved query for nonexistent token");
+
+    return _tokenApprovals[tokenId];
+
+  }
+
+  function setApprovalForAll(address operator, bool _approved) external override {
+    revert('not implemented yet');
+  }
+
+  function isApprovedForAll(address owner, address operator) external view override returns(bool) {
+    revert('not implemented yet');
+  }
+
+  /**
+    ADDITIONAL FUNCTIONALITY
+   */
 
   /**
     Creation of NFTs (“minting”) is a process characterized by:
@@ -91,52 +157,45 @@ contract ERC721 {
   }
 
   /**
-    @notice Transfer ownership of an NFT -- THE CALLER IS RESPONSIBLE
-    TO CONFIRM THAT `_to` IS CAPABLE OF RECEIVING NFTS OR ELSE
-    THEY MAY BE PERMANENTLY LOST
-    @dev Throws unless `msg.sender` is the current owner, an authorized
-    operator, or the approved address for this NFT. Throws if `_from` is
-    not the current owner. Throws if `_to` is the zero address. Throws if
-    `_tokenId` is not a valid NFT.
-    @param _from The current owner of the NFT
-    @param _to The new owner
-    @param _tokenId The NFT to transfer
+    Checks if a tokenId is mapped to an existing owner.
    */
-  function transferFrom(address _from, address _to, uint256 _tokenId) external payable
-    onlyOwnerOf(_tokenId)
-    addressIsNotNull(_to)
-  {
+  function _exists(uint256 tokenId) internal view returns(bool) {
 
-    _transferFrom(_from, _to, _tokenId);
+    address owner = _tokenOwner[tokenId];
+
+    return owner == address(0);
 
   }
 
-  function _transferFrom(address _from, address _to, uint256 _tokenId) internal
-    onlyOwnerOf(_tokenId)
-    addressIsNotNull(_to)
-  {
+  /**
+    HELPER METHODS
+   */
 
-    require(ownerOf(_tokenId) == _from, "Sender address does not own the token.");
+  function isApprovedOrOwner(address spender, uint256 tokenId) private view returns(bool) {
 
-    _tokenOwner[_tokenId] = _to;
-    _ownedTokensAmount[_from] -= 1;
-    _ownedTokensAmount[_to] += 1;
+    require(_exists(tokenId), "ERC721: Token does not exist.");
 
-    emit Transfer(_from, _to, _tokenId);
-
+    return (
+      spender == getApproved(tokenId) ||
+      spender == ownerOf(tokenId)
+    );
   }
 
   function isAddressValid(address wallet) private pure returns(bool) {
     return wallet != address(0);
   }
 
+  /**
+    MODIFIERS/DECORATORS
+   */
+
   modifier addressIsNotNull(address wallet) {
     require(isAddressValid(wallet), "ERC721: Zero address is considered invalid.");
     _;
   }
 
-  modifier onlyOwnerOf(uint256 tokenId) {
-    require(ownerOf(tokenId) == msg.sender, "ERC721: Unauthorized message sender.");
+  modifier onlyApprovedOrOwnerOf(uint256 tokenId) {
+    require(isApprovedOrOwner(msg.sender, tokenId), "ERC721: Unauthorized message sender.");
     _;
   }
 
