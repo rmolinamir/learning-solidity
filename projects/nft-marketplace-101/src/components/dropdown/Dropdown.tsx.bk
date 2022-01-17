@@ -1,0 +1,92 @@
+import { Fragment } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/solid';
+import { classNames } from '../../utils/classNames';
+import { Icon } from '../../common/Icon';
+import { ClassName } from '../../common/ClassName';
+
+type DropdownProps = {
+  children: React.ReactNode;
+  label: React.ReactNode;
+  className?: ClassName;
+};
+
+export default function Dropdown({
+  children,
+  label,
+  className = 'rounded-md border border-gray-300 shadow-sm'
+}: DropdownProps) {
+  return (
+    <Menu as='div' className='relative inline-block text-left'>
+      <div>
+        <Menu.Button className={classNames(
+          'inline-flex justify-center items-center w-full px-4 py-2',
+          className
+        )}>
+          {label}
+          <ChevronDownIcon className='-mr-1 ml-2 h-5 w-5' aria-hidden='true' />
+        </Menu.Button>
+      </div>
+
+      <Transition
+        as={Fragment}
+        enter='transition ease-out duration-100'
+        enterFrom='transform opacity-0 scale-95'
+        enterTo='transform opacity-100 scale-100'
+        leave='transition ease-in duration-75'
+        leaveFrom='transform opacity-100 scale-100'
+        leaveTo='transform opacity-0 scale-95'
+      >
+        <Menu.Items className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
+          {children}
+        </Menu.Items>
+      </Transition>
+
+    </Menu>
+  );
+}
+
+type DropdownSectionProps = { children: React.ReactNode };
+
+Dropdown.Section = function({ children }: DropdownSectionProps): JSX.Element {
+
+  return (
+    <div className='py-1'>
+      {children}
+    </div>
+  );
+
+}
+
+type DropdownItemProps = {
+  children: React.ReactNode;
+  active?: boolean;
+  Icon?: Icon;
+  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
+};
+
+Dropdown.Item = function({ children, active, Icon, onClick }: DropdownItemProps): JSX.Element {
+
+  return (
+    <Menu.Item>
+      {({ active: isHovering }) => (
+        <div
+          className={classNames(
+            'flex justify-start items-center text-gray-700',
+            active ? '!text-blue-400' : '',
+            isHovering ? 'bg-gray-100 text-gray-900' : '',
+          )}
+          onClick={onClick}
+        >
+          {Icon && <Icon className='ml-2 h-5 w-5' aria-hidden='true' />}
+          <div
+            className='flex-1 px-4 py-2 text-sm'
+          >
+            {children}
+          </div>
+        </div>
+      )}
+    </Menu.Item>
+  );
+
+}

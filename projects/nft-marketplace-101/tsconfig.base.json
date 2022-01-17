@@ -19,7 +19,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["@types/node", "@types/chai", "@types/mocha"],
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "types": [
+      "@types/chai",
+      "@types/mocha",
+      "@types/node"
+  ],
+    "typeRoots": ["./node_modules/@types"]
   }
 }
