@@ -4,6 +4,8 @@ import { provider } from 'web3-core';
 import { EthereumProvider } from './EthereumProvider';
 import { ProviderRpcError, ProviderAccounts } from 'eip1193-provider';
 
+// TODO: Might need to be renamed to W3Web3Singleton, because Ethers.js could be
+// used here.
 export class Web3Singleton {
 
   public _web3: Web3;
@@ -26,6 +28,18 @@ export class Web3Singleton {
     const accounts = await this._web3.eth.getAccounts();
     return accounts;
   }
+
+  /**
+   * Fetch the current network ID.
+   */
+  public async getNetworkId(): Promise<number> {
+    const id = await this._web3.eth.net.getId();
+    return id;
+  }
+
+  /**
+   * SUBSCRIPTIONS
+   */
 
   /**
    * Subscribes to account changes.
@@ -57,6 +71,10 @@ export class Web3Singleton {
     const connectedAddress = Array.isArray(res) ? res[0] : res;
     return connectedAddress;
   }
+
+  /**
+   * METHODS
+   */
 
   /**
    * Singleton instance.

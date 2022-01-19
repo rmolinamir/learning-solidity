@@ -1,15 +1,5 @@
-import React from 'react';
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
-import { Swiper as SwiperClass } from 'swiper/types';
-import { Swiper, SwiperSlide } from 'swiper/react';import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from '@heroicons/react/outline';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { StackedCard } from '../cards/StackedCard';
+import { StackedCard } from '../ui/cards/StackedCard';
+import Slider from '../ui/slider/Slider';
 
 const cards: Parameters<typeof StackedCard>[number][] = [
   {
@@ -52,27 +42,6 @@ const cards: Parameters<typeof StackedCard>[number][] = [
 
 export default function Hero() {
 
-  const prevElement = React.useRef<HTMLButtonElement>(null);
-  const nextElement = React.useRef<HTMLButtonElement>(null);
-  const swiperRef = React.useRef<SwiperClass | null>(null);
-
-  React.useEffect(() => {
-
-    const swiper = swiperRef.current;
-
-    if (swiper && typeof swiper.params.navigation !== 'boolean' && swiper.params.navigation) {
-      // Override prevEl & nextEl now that refs are defined
-      swiper.params.navigation.prevEl = prevElement.current;
-      swiper.params.navigation.nextEl = nextElement.current;
-
-      // Re-init navigation
-      swiper.navigation.destroy();
-      swiper.navigation.init();
-      swiper.navigation.update();
-    }
-
-  }, [])
-
   return (
     
     <section className='px-4 py-8 mx-auto max-w-7xl'>
@@ -103,59 +72,40 @@ export default function Hero() {
 
       <div className='mt-24'>
 
-        <h1 className='text-center text-4xl font-semibold leading-tight mb-12 text-base-content'>Hottest NFTs</h1>
+        <h1 className='text-center text-4xl font-semibold leading-tight mb-12 text-base-content'>Newest Collections</h1>
 
         <div className='relative px-5'>
 
-          <Swiper
-            className='!pb-16'
-            modules={[Navigation, Pagination, A11y, Autoplay]}
-            spaceBetween={50}
+          <Slider
             breakpoints={{
-              640: {
+              sm: {
                 slidesPerView: 1,
               },
-              768: {
+              md: {
                 slidesPerView: 2,
               },
-              1024: {
+              lg: {
                 slidesPerView: 2,
               },
-              1280: {
+              xl: {
                 slidesPerView: 3,
               },
-              1536: {
+              '2xl': {
                 slidesPerView: 3,
               },
             }}
-            loop
-            loopFillGroupWithBlank
-            navigation={{ prevEl: prevElement.current, nextEl: nextElement.current }}
-            pagination={{ clickable: true }}
-            draggable={false}
-            allowTouchMove={false}
-            autoplay
-            onBeforeInit={swiper => { swiperRef.current = swiper; }}
           >
             {cards.map((c, i) => (
-              <SwiperSlide key={i}>
-                <StackedCard
-                  className='m-auto'
-                  title={c.title}
-                  description={c.description}
-                  badges={c.badges}
-                  src={c.src}
-                />
-              </SwiperSlide>
+              <StackedCard
+                key={i}
+                className='m-auto'
+                title={c.title}
+                description={c.description}
+                badges={c.badges}
+                src={c.src}
+              />
             ))}
-          </Swiper>
-
-          <button className='backdrop-blur bg-neutral-content/40 z-10 absolute top-1/2 left-0 inline-block p-3 rounded-full border border-primary !outline-none' ref={prevElement}>
-            <ChevronLeftIcon className='h-5 w-5 text-primary' />
-          </button>
-          <button className='backdrop-blur bg-neutral-content/40 z-10 absolute top-1/2 right-0 inline-block p-3 rounded-full border border-primary !outline-none' ref={nextElement}>
-            <ChevronRightIcon className='h-5 w-5 text-primary' />
-          </button>
+          </Slider>
 
         </div>
 

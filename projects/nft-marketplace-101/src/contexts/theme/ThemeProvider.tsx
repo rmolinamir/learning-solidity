@@ -19,6 +19,7 @@ export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
   const value = { state, dispatch };
 
   React.useEffect(() => {
+
     themeStorage.store(state.theme);
 
     if (themeProviderRef.current) {

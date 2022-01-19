@@ -5,7 +5,7 @@ import { Web3Singleton } from '../Web3Singleton';
 /**
  * Attempts to re-connect to the Ethereum Network.
  */
-export async function onDisconnectHandler(dispatch: Web3Dispatch): Promise<void> {
+export async function onDisconnectListener(dispatch: Web3Dispatch): Promise<void> {
 
   try {
 

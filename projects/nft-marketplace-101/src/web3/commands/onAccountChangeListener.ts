@@ -5,7 +5,7 @@ import { Web3Singleton } from '../Web3Singleton';
 /**
  * Attempts to re-connect to the Ethereum Network.
  */
-export async function onAccountChangeHandler(dispatch: Web3Dispatch, connectedAccount: Web3State['connectedAccount']): Promise<void> {
+export async function onAccountChangeListener(dispatch: Web3Dispatch, connectedAccount: Web3State['connectedAccount']): Promise<void> {
 
   try {
 
@@ -13,8 +13,6 @@ export async function onAccountChangeHandler(dispatch: Web3Dispatch, connectedAc
 
     if (web3) {
       web3.onAccountChange(([accountAddress]) => {
-        console.log('connectedAccount: ', connectedAccount);
-        console.log('accountAddress: ', accountAddress);
         if (accountAddress !== connectedAccount)
           dispatch({ type: Web3ActionType.Connect, payload: { address: accountAddress } });
       });

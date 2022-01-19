@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/outline';
 import { useTheme } from '../../contexts/theme/useTheme';
 import { Theme } from '../../contexts/theme/Theme';
-import Dropdown from '../dropdown/Dropdown';
+import Dropdown from '../ui/dropdown/Dropdown';
 import { ClassName } from '../../common/ClassName';
 
 type ThemeDropdownProps = {

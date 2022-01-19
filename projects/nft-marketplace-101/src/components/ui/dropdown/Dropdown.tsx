@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { usePopper } from 'react-popper'
-import { classNames } from '../../utils/classNames';
-import { Icon } from '../../common/Icon';
-import { ClassName } from '../../common/ClassName';
+import { classNames } from '../../../utils/classNames';
+import { Icon } from '../../../common/Icon';
+import { ClassName } from '../../../common/ClassName';
 
 type DropdownProps = {
   children: React.ReactNode;
