@@ -6,8 +6,8 @@ import MobilePanel from './MobilePanel';
 
 export default function Navbar() {
   return (
-    <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-      <div className='leading-6 font-semibold flex justify-between items-center py-3 md:justify-start md:space-x-10'>
+    <header className='max-w-7xl mx-auto px-4 sm:px-6'>
+      <nav className='leading-6 font-semibold flex justify-between items-center py-3 md:justify-start md:space-x-10'>
 
         <Navbar.Items />
 
@@ -23,8 +23,8 @@ export default function Navbar() {
           <MobilePanel.PopoverButton />
         </div>
 
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 }
 

@@ -1,52 +1,56 @@
-import { StackedCard } from '../ui/cards/StackedCard';
-import Slider from '../ui/slider/Slider';
-
-const cards: Parameters<typeof StackedCard>[number][] = [
-  {
-    title: 'The Coldest Sunset',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-    badges: ['#lorem', '#ipsum'],
-    src: 'https://v1.tailwindcss.com/img/card-top.jpg',
-  },
-  {
-    title: 'The Coldest Sunset',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-    badges: ['#lorem', '#ipsum'],
-    src: 'https://v1.tailwindcss.com/img/card-top.jpg',
-  },
-  {
-    title: 'The Coldest Sunset',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-    badges: ['#lorem', '#ipsum'],
-    src: 'https://v1.tailwindcss.com/img/card-top.jpg',
-  },
-  {
-    title: 'The Coldest Sunset',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-    badges: ['#lorem', '#ipsum'],
-    src: 'https://v1.tailwindcss.com/img/card-top.jpg',
-  },
-  {
-    title: 'The Coldest Sunset',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-    badges: ['#lorem', '#ipsum'],
-    src: 'https://v1.tailwindcss.com/img/card-top.jpg',
-  },
-  {
-    title: 'The Coldest Sunset',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-    badges: ['#lorem', '#ipsum'],
-    src: 'https://v1.tailwindcss.com/img/card-top.jpg',
-  },
-]
+import assert from 'assert';
+import React from 'react';
+import { useAsyncCallback } from 'react-async-hook';
+import { useWeb3 } from '../../contexts/web3/useWeb3';
+import { classNames } from '../../utils/classNames';
+import { mint } from '../../web3/commands/mint';
+import Dialog from '../ui/dialog/Dialog';
+import FileInput from '../ui/input/FileInput';
 
 export default function Hero() {
 
-  return (
-    
-    <section className='px-4 py-8 mx-auto max-w-7xl'>
+  const { state, dispatch } = useWeb3();
 
-      <div className='w-full mx-auto md:w-11/12 text-center'>
+  let [isOpen, setIsOpen] = React.useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  const asyncOnSubmit = useAsyncCallback(async function(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+
+    event.preventDefault();
+
+    const data = { nft: '' };
+
+    const form = event.target as HTMLFormElement;
+
+    for (const formElement of Object.values(form.elements)) {
+
+      if (formElement instanceof HTMLInputElement) {
+        const input = formElement;
+        data.nft = input.value;
+      }
+
+    }
+
+    assert(data.nft, 'Cannot mint an empty NFT');
+
+    await mint(dispatch, state, data.nft);
+
+    closeModal();
+
+  });
+
+  return (
+
+    <>
+
+      <section className='w-full mx-auto md:w-11/12 text-center'>
 
         <h1 className='mb-9 text-4xl font-extrabold leading-snug tracking-normal text-base-content md:text-6xl md:tracking-tight'>
           A decentralized <span className='block w-full text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent lg:inline'>shopping experience</span> for your favorite collectibles.
@@ -58,60 +62,51 @@ export default function Hero() {
 
         <div className='mb-4 space-x-1 md:space-x-2 md:mb-8'>
 
-          <button className='capitalize inline-flex items-center justify-center mb-2 btn btn-primary btn-lg !min-h-min !h-14 !w-40 !sm:w-auto border-2 !border-base-content/20 sm:mb-0'>
+          {/* <button className='capitalize inline-flex items-center justify-center mb-2 btn btn-primary btn-lg !min-h-min !h-14 !w-40 !sm:w-auto border-2 !border-base-content/20 sm:mb-0'>
             Browse
-          </button>
+          </button> */}
 
-          <button className='capitalize inline-flex items-center justify-center mb-2 btn btn-accent btn-lg !min-h-min !h-14 !w-40 !sm:w-auto border-2 !border-base-content/20 sm:mb-0'>
-            Publish
-          </button>
-
-        </div>
-
-      </div>
-
-      <div className='mt-24'>
-
-        <h1 className='text-center text-4xl font-semibold leading-tight mb-12 text-base-content'>Newest Collections</h1>
-
-        <div className='relative px-5'>
-
-          <Slider
-            breakpoints={{
-              sm: {
-                slidesPerView: 1,
-              },
-              md: {
-                slidesPerView: 2,
-              },
-              lg: {
-                slidesPerView: 2,
-              },
-              xl: {
-                slidesPerView: 3,
-              },
-              '2xl': {
-                slidesPerView: 3,
-              },
-            }}
+          <button
+            className='capitalize inline-flex items-center justify-center mb-2 btn btn-accent btn-lg !min-h-min !h-14 !w-40 !sm:w-auto border-2 !border-base-content/20 sm:mb-0'
+            onClick={openModal}
           >
-            {cards.map((c, i) => (
-              <StackedCard
-                key={i}
-                className='m-auto'
-                title={c.title}
-                description={c.description}
-                badges={c.badges}
-                src={c.src}
-              />
-            ))}
-          </Slider>
+            Mint
+          </button>
 
         </div>
 
-      </div>
+      </section>
 
-    </section>
+      <Dialog
+        open={isOpen}
+        locked={asyncOnSubmit.loading}
+        onClose={closeModal}
+      >
+
+        <div className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-neutral-content shadow-xl shadow-base-300 rounded-2xl'>
+
+          <form onSubmit={asyncOnSubmit.execute}>
+
+            <FileInput className='mb-6 w-full' />
+
+            <button
+              type='submit'
+              disabled={asyncOnSubmit.loading}
+              className={classNames(
+                'btn btn-block btn-primary btn-outline',
+                asyncOnSubmit.loading ? 'loading cursor:not-allowed' : '',
+              )}
+            >
+              Submit
+            </button>
+
+          </form>
+
+        </div>
+
+      </Dialog>
+    
+    </>
 
   );
 

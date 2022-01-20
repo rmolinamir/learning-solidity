@@ -13,7 +13,6 @@ export async function reconnect(dispatch: Web3Dispatch): Promise<void> {
 
     if (web3) {
       const [address] = await web3.getConnectedAccounts();
-      console.log('reconnect address: ', address);
       if (address) dispatch({ type: Web3ActionType.Connect, payload: { address }});
     }
 

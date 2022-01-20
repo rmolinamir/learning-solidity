@@ -60,7 +60,7 @@ export function web3Reducer(state: Web3State, action: Web3Action): Web3State {
     }
 
     case Web3ActionType.Mint: {
-      assert(newState.nftList && newState.totalSupply, 'Cannot mint without contract data.');
+      assert(newState.nftList !== null && newState.totalSupply !== null, 'Cannot mint without contract data.');
       // NOTE: Might need to create a new Array.
       newState.nftList.push(action.payload.nft); 
       newState.totalSupply += 1;
@@ -71,7 +71,8 @@ export function web3Reducer(state: Web3State, action: Web3Action): Web3State {
 
   }
 
-  console.log('newState: ', newState);
+  console.info('[INFO] web3.state: ', newState);
+
   return newState;
 
 }

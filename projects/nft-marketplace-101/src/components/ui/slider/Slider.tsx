@@ -106,7 +106,7 @@ export default function Slider(props: SliderProps) {
     if (isSwiperSlide(child)) return child;
 
     return (
-      <SwiperSlide key={i}>
+      <SwiperSlide className='!h-auto' key={i}>
         {child}
       </SwiperSlide>
     );

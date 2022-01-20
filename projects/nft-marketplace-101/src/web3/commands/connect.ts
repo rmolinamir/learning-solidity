@@ -14,7 +14,6 @@ export async function connect(dispatch: Web3Dispatch): Promise<void> {
     if (web3) {
 
       const address = await web3.connect();
-      console.log('connect address: ', address);
 
       dispatch({ type: Web3ActionType.Connect, payload: { address } });
 

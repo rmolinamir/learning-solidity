@@ -2,6 +2,7 @@
 pragma solidity ^0.8.1;
 
 import './interfaces/IERC721.sol';
+import './libraries/Counters.sol';
 import './ERC165.sol';
 
 /**
@@ -10,6 +11,8 @@ import './ERC165.sol';
 
  */
 contract ERC721 is ERC165, IERC721 {
+
+  using Counters for Counters.Counter;
 
   // NOTE: Inherited from IERC721.
   // TODO: Add indexed modifier definition from docs, it allows to index the event properties
@@ -25,7 +28,7 @@ contract ERC721 is ERC165, IERC721 {
   /**
     Allows us to check how many tokens are owned by an address.
    */
-  mapping(address => uint256) private _ownedTokensAmount;
+  mapping(address => Counters.Counter) private _ownedTokensAmount;
 
   /**
     Allows us to check the owner's address of a token.
@@ -59,7 +62,7 @@ contract ERC721 is ERC165, IERC721 {
     addressIsNotNull(_owner)
   returns(uint256) {
 
-    return _ownedTokensAmount[_owner];
+    return _ownedTokensAmount[_owner].current();
 
   }
 
@@ -95,8 +98,9 @@ contract ERC721 is ERC165, IERC721 {
     require(ownerOf(_tokenId) == _from, "Sender address does not own the token.");
 
     _tokenOwner[_tokenId] = _to;
-    _ownedTokensAmount[_from] -= 1;
-    _ownedTokensAmount[_to] += 1;
+
+    _ownedTokensAmount[_from].decrement();
+    _ownedTokensAmount[_to].increment();
 
     emit Transfer(_from, _to, _tokenId);
 
@@ -145,12 +149,15 @@ contract ERC721 is ERC165, IERC721 {
       d. Keeps track of how many tokens an owner address has
       e. Emit event for telemetry of contract address, minting address, & token ID
    */
-  function _mint(address to, uint256 tokenId) internal virtual addressIsNotNull(to) {
+  function _mint(address to, uint256 tokenId) internal virtual
+    addressIsNotNull(to)
+  {
 
     require(_exists(tokenId), "ERC721: Token is already owned.");
 
     _tokenOwner[tokenId] = to;
-    _ownedTokensAmount[to] += 1;
+
+    _ownedTokensAmount[to].increment();
 
     emit Transfer(address(0), to, tokenId);
 

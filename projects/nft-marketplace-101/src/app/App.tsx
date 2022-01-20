@@ -9,7 +9,7 @@ function App() {
 
   return (
     <Web3Provider>
-      <ThemeProvider>
+      <ThemeProvider root>
         <BrowserRouter>
           <Body>
             <Routes>

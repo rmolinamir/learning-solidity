@@ -95,13 +95,12 @@ export class Web3Singleton {
         provider &&
         Web3Singleton.isEthereumProvider(provider)
       ) {
-        console.log('ETH wallet detected.');
-        console.log('window.ethereum: ', window.ethereum)
+        console.info('[INFO] ETH wallet detected.');
         const web3 = new Web3(provider as unknown as provider);
         Web3Singleton.singleton = new Web3Singleton(web3, provider);
       } else {
-        console.log('ETH wallet not detected.');
-        console.log('Please install MetaMask.');
+        console.warn('[WARN] ETH wallet not detected.');
+        console.warn('[WARN] Please install MetaMask.');
       }
 
     }

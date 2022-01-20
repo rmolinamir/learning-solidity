@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import { usePopper } from 'react-popper'
 import { classNames } from '../../../utils/classNames';
 import { Icon } from '../../../common/Icon';
 import { ClassName } from '../../../common/ClassName';
@@ -20,12 +19,8 @@ export default function Dropdown({
   openClassName = '',
 }: DropdownProps) {
 
-  const referenceElement = React.useRef<HTMLDivElement>(null);
-  const popperElement = React.useRef<HTMLDivElement>(null);
-  const { styles, attributes } = usePopper(referenceElement.current, popperElement.current);
-
   return (
-    <Popover as='div' ref={referenceElement} className='relative inline-block text-left'>
+    <Popover as='div' className='relative inline-block text-left'>
       {({ open }) => (
         <>
           <Popover.Button
@@ -49,10 +44,7 @@ export default function Dropdown({
             leaveTo='transform opacity-0 scale-95'
           >
             <Popover.Panel
-              ref={popperElement}
-              style={styles.popper}
-              {...attributes.popper}
-              className='z-50 bg-base-200 mt-9 w-56 rounded-md shadow-lg ring-base-content ring-opacity-5 divide-y divide-base-content'
+              className='absolute z-50 bg-base-200 w-56 rounded-md shadow-lg ring-base-content ring-opacity-5 divide-y divide-base-content'
             >
               {children}
             </Popover.Panel>

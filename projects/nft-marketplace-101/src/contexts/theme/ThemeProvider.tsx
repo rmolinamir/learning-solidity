@@ -4,11 +4,11 @@ import { ThemeStorage } from './ThemeStorage';
 import { themeReducer } from './themeReducer';
 import { Theme } from './Theme';
 
-type ThemeProviderProps = { children: React.ReactNode };
+type ThemeProviderProps = { children: React.ReactNode, root: boolean };
 
-export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
+export function ThemeProvider({ children, root }: ThemeProviderProps): JSX.Element {
 
-  const themeProviderRef = React.useRef<HTMLDivElement>(null);
+  const providerWrapperRef = React.useRef<HTMLDivElement>(null);
 
   const { current: themeStorage } = React.useRef(new ThemeStorage());
 
@@ -22,21 +22,25 @@ export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
 
     themeStorage.store(state.theme);
 
-    if (themeProviderRef.current) {
+    if (providerWrapperRef.current) {
 
-      const root = themeProviderRef.current;
+      const providerWrapper = root
+        ? providerWrapperRef.current
+        : document.body;
+
       const dataTheme = state.theme === Theme.System
         ? ThemeStorage.computeSystemTheme()
-        : state.theme
-      root.setAttribute('data-theme', dataTheme);
+        : state.theme;
+
+      providerWrapper.setAttribute('data-theme', dataTheme);
 
     }
 
-  }, [themeStorage, state.theme]);
+  }, [themeStorage, state.theme, root]);
 
   return (
     <ThemeContext.Provider value={value}>
-      <div ref={themeProviderRef}>
+      <div ref={providerWrapperRef}>
         {children}
       </div>
     </ThemeContext.Provider>

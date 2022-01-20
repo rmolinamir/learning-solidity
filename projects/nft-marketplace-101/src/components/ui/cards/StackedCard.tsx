@@ -25,12 +25,12 @@ export function StackedCard({ title, description, badges, src, className }: Stac
 
   return (
     <div className={classNames(
-      'bg-base-300 max-w-sm rounded overflow-hidden shadow-lg',
+      'flex flex-col bg-base-300 max-w-sm rounded overflow-hidden shadow-lg height-100',
       className,
     )}>
-      <img className='w-full' src={src} alt='StackedCardImage' />
-      <div className='px-6 py-4'>
-        <div className='font-bold text-xl mb-2'>{title}</div>
+      <img className='w-full h-[55%] object-cover object-center' src={src} alt='StackedCardImage' />
+      <div className='flex-1 px-6 py-4'>
+        <div className='font-bold text-xl mb-4'>{title}</div>
         <p className='text-base-content/80 text-base'>
           {description}
         </p>

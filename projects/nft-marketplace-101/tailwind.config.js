@@ -29,7 +29,7 @@ module.exports = {
           'accent-content' : '#ffffff',    /* Foreground content color to use on accent color */
 
           'neutral' : '#3d4451',           /* Neutral color */
-          'neutral-focus' : '#2a2e37',     /* Neutral color - focused */
+          'neutral-focus' : '#1d2026',     /* Neutral color - focused */
           'neutral-content' : '#ffffff',   /* Foreground content color to use on neutral color */
 
           'base-100' : '#ffffff',          /* Base color of page, used for blank backgrounds */
@@ -58,7 +58,7 @@ module.exports = {
           'accent-content' : '#ffffff',    /* Foreground content color to use on accent color */
 
           'neutral' : '#5b6670',           /* Neutral color */
-          'neutral-focus' : '#2a2e37',     /* Neutral color - focused */
+          'neutral-focus' : '#1d2026',     /* Neutral color - focused */
           'neutral-content' : '#16181d',   /* Foreground content color to use on neutral color */
 
           'base-100' : '#3d4451',          /* Base color of page, used for blank backgrounds */
