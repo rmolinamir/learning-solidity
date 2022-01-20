@@ -4,9 +4,10 @@
 
 # truffle/ethereum remix IDE compilations
 
+abis
 artifacts
 build
-abis
+dist
 
 # dependencies
 /node_modules

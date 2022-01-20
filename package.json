@@ -8,6 +8,5 @@
     "clean-dist": "rm -fr packages/*/*.tsbuildinfo && rm -fr packages/*/dist && rm -fr packages/*/.serverless",
     "clean-incl-deps": "npm run clean && npm run clean-deps",
     "clean-output": "rm -fr output && rm -fr */**/output"
-  },
-  "dependencies": {}
+  }
 }
