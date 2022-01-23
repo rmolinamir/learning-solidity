@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swiper-pagination-bullet {
+  @apply !bg-primary;
+}
+
+@layer components {
+  .btn {
+    @apply capitalize;
+  }
+}
