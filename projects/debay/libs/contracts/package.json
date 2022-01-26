@@ -1,0 +1,42 @@
+{
+  "name": "@debay/contracts",
+  "private": true,
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Robert Molina <rmolinamir@gmail.com>",
+  "scripts": {
+    "prebuild": "npm run contracts:compile",
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf  ./coverage ./coverage.json ./src/artifacts ./src/cache ./src/types",
+    "contracts:compile": "npx hardhat compile",
+    "postcontracts:compile": "npm run contracts:types",
+    "contracts:coverage": "npm typechain && npx hardhat coverage --solcoverjs ./.solcover.js --temp artifacts --testfiles \"./test/**/*.ts\"",
+    "contracts:deploy": "npx hardhat deploy",
+    "contracts:start": "npx hardhat node",
+    "contracts:test": "npx hardhat test",
+    "contracts:types": "npx hardhat typechain",
+    "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
+    "lint:sol": "solhint --config ./.solhint.json --max-warnings 0 \"contracts/**/*.sol\"",
+    "lint:ts": "eslint --config ./.eslintrc.yaml --ignore-path ./.eslintignore --ext .js,.ts .",
+    "test": "npm run contracts:test"
+  },
+  "files": ["./dist"],
+  "main": "./dist/index.js",
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": ["dist/libs/contracts"],
+        "dependsOn": [
+          {
+            "target": "build",
+            "projects": "dependencies"
+          }
+        ]
+      },
+      "test": {
+        "outputs": [],
+        "dependsOn": []
+      }
+    }
+  }
+}

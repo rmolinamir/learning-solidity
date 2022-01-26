@@ -3,7 +3,7 @@ import asPromisd from 'chai-as-promised';
 import { ethers } from 'hardhat';
 import { MockProvider, solidity } from 'ethereum-waffle';
 import faker from 'faker';
-import { DeBay } from '../typechain';
+import { DeBay } from '../src/types';
 
 use(asPromisd);
 use(solidity);
@@ -48,7 +48,7 @@ describe('DeBay', function () {
 
       const image = faker.random.image();
 
-      const mintTx = deBay.mintItem(wallet.address, image);
+      const mintTx = deBay.mint(wallet.address, image);
 
       // wait until the transaction is mined
       await expect(mintTx).to
@@ -61,7 +61,7 @@ describe('DeBay', function () {
 
       const image = faker.random.image();
 
-      const receipt = await deBay.mintItem(wallet.address, image);
+      const receipt = await deBay.mint(wallet.address, image);
 
       const tokenId = receipt.v;
 
@@ -72,7 +72,7 @@ describe('DeBay', function () {
 
     it('should revert invalid minting', async () => {
 
-      await expect(deBay.mintItem(NullAddress, '')).to.be.reverted;
+      await expect(deBay.mint(NullAddress, '')).to.be.reverted;
 
     });
 

@@ -1,14 +1,23 @@
 {
-  "name": "nft-marketplace-101-v2",
+  "name": "debay",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bootstrap": "npx lerna bootstrap --hoist",
+    "bootstrap:local": "npx lerna bootstrap --ignore-scripts --force-local",
+    "bootstrap:hoist": "npx lerna bootstrap --ignore-scripts --hoist",
+    "build": "lerna run build",
+    "clean": "npm run clean:deps && npm run clean:dist",
+    "clean:deps": "rm -fr node_modules && rm -fr packages/*/node_modules && rm -f package-lock.json && rm -fr */**/package-lock.json && rm -f package-lock.json && rm -fr */**/package-lock.json",
+    "clean:dist": "rm -fr packages/*/*.tsbuildinfo && rm -fr packages/*/dist",
+    "clean:tmp": "rm -fr tmp && rm -fr */**/tmp",
+    "clean:logs": "rm -f *.log && rm -fr */**/*.log",
+    "clean:output": "rm -fr output && rm -fr */**/output"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "lerna": "^4.0.0"
   }
 }

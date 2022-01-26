@@ -6,15 +6,15 @@ import Header from '../../layout/header/Header';
 
 function Landing() {
   return (
-      <>
-        <Header />
-        <main className='px-4 py-8 mx-auto max-w-7xl min-h-screen'>
-          <Hero />
-          <NewestNfts />
-          <Items />
-        </main>
-        <Footer />
-      </>
+    <>
+      <Header />
+      <main className='px-4 py-8 mx-auto max-w-7xl min-h-screen'>
+        <Hero />
+        <NewestNfts />
+        <Items />
+      </main>
+      <Footer />
+    </>
   );
 }
 

@@ -1,0 +1,95 @@
+import detectEthereumProvider from '@metamask/detect-provider';
+import Web3 from 'web3';
+import { provider } from 'web3-core';
+import { EthereumProvider } from '../common/EthereumProvider';
+import { ProviderRpcError, ProviderAccounts } from 'eip1193-provider';
+import { IEthereumService } from '../common/IEthereumService';
+
+export class Web3EthereumService implements IEthereumService {
+
+  public _web3: Web3;
+
+  public _ethereumProvider: EthereumProvider;
+
+  private constructor(web3: Web3, ethereumProvider: EthereumProvider) {
+    this._web3 = web3;
+    this._ethereumProvider = ethereumProvider;
+  }
+
+  /* READS */
+
+  public async getConnectedAccounts(): Promise<string[]> {
+    const accounts = await this._web3.eth.getAccounts();
+    return accounts;
+  }
+
+  public async getNetworkId(): Promise<number> {
+    const id = await this._web3.eth.net.getId();
+    return id;
+  }
+
+  /* SUBSCRIPTIONS */
+
+  public onAccountChange(listener: (accounts: ProviderAccounts) => void): void {
+    this._ethereumProvider.on('accountsChanged', listener);
+  }
+
+  public onDisconnect(listener: (error?: ProviderRpcError) => void): void {
+    this._ethereumProvider.on('disconnect', listener);
+    this._ethereumProvider.on('accountsChanged', (connectedAccounts) => {
+      if (!connectedAccounts.length) listener();
+    });
+  }
+
+  /* WRITES */
+
+  public async connect(): Promise<string> {
+    const res = await this._ethereumProvider.request<string | string[]>({ method: 'eth_requestAccounts', });
+    const connectedAddress = Array.isArray(res) ? res[0] : res;
+    return connectedAddress;
+  }
+
+  /* METHODS */
+
+  /**
+   * Singleton instance.
+   */
+  private static singleton: Web3EthereumService;
+
+  /**
+   * Returns the Web3EthereumService instance if the metamask provider
+   * was successfully loaded.
+   */
+  public static async new(): Promise<Web3EthereumService | undefined> {
+
+    if (!Web3EthereumService.singleton) {
+
+      const provider = await detectEthereumProvider();
+
+      if (
+        provider &&
+        Web3EthereumService.isEthereumProvider(provider)
+      ) {
+        console.info('[INFO] ETH wallet detected.');
+        const web3 = new Web3(provider as unknown as provider);
+        Web3EthereumService.singleton = new Web3EthereumService(web3, provider);
+      } else {
+        console.warn('[WARN] ETH wallet not detected.');
+        console.warn('[WARN] Please install MetaMask.');
+      }
+
+    }
+
+    return Web3EthereumService.singleton;
+
+  }
+
+  public static getWindowEthereumProvider(): EthereumProvider | undefined {
+    return window.ethereum as EthereumProvider | undefined;
+  }
+
+  private static isEthereumProvider(provider: unknown): provider is EthereumProvider {
+    return provider === window.ethereum;
+  }
+
+}

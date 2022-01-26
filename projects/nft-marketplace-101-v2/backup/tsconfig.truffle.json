@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node"
-  },
-  "include": ["contracts/types", "tests/contracts/**/*.ts"],
-  "exclude": ["node_modules", "abis", "build", "cache"]
-}

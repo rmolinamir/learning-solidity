@@ -1,0 +1,14 @@
+{
+  "name": "@debay/client",
+  "private": true,
+  "description": "> TODO: description",
+  "author": "Robert Molina <rmolinamir@gmail.com>",
+  "homepage": "https://github.com/rmolinamir/learning-solidity#readme",
+  "license": "ISC",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}

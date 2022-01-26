@@ -1,10 +1,13 @@
 {
-  "name": "contracts",
+  "name": "@debay/contracts",
+  "private": true,
   "version": "1.0.0",
   "description": "> TODO: description",
   "author": "Robert Molina <rmolinamir@gmail.com>",
   "homepage": "https://github.com/rmolinamir/learning-solidity#readme",
   "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@openzeppelin/contracts": "4.4.1"
   },
@@ -44,17 +47,22 @@
     "typescript": "^4.5.5"
   },
   "scripts": {
-    "clean": "rm -rf ./artifacts ./cache ./coverage ./src/types ./coverage.json",
+    "prebuild": "npm run contracts:compile",
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf  ./coverage ./coverage.json ./src/artifacts ./src/cache ./src/types",
     "contracts:compile": "npx hardhat compile",
+    "postcontracts:compile": "npm run contracts:types",
     "contracts:coverage": "npm typechain && npx hardhat coverage --solcoverjs ./.solcover.js --temp artifacts --testfiles \"./test/**/*.ts\"",
-    "contracts:deploy": "npx hardhat deploy",
+    "contracts:deploy": "npx hardhat scripts/deploy.ts",
+    "contracts:deploy:local": "npx hardhat run --network localhost scripts/deploy.ts",
     "contracts:start": "npx hardhat node",
     "contracts:test": "npx hardhat test",
-    "contracts:types": "npx hardhat typechain",
+    "contracts:types": "rm -rf ./src/types && npx hardhat typechain",
     "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
     "lint:sol": "solhint --config ./.solhint.json --max-warnings 0 \"contracts/**/*.sol\"",
     "lint:ts": "eslint --config ./.eslintrc.yaml --ignore-path ./.eslintignore --ext .js,.ts .",
-    "post": "npm run contrats:types"
+    "start": "npm run contracts:start",
+    "test": "npm run contracts:test"
   },
   "repository": {
     "type": "git",

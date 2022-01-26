@@ -1,0 +1,39 @@
+{
+  "root": "apps/demoapp",
+  "sourceRoot": "apps/demoapp/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/demoapp",
+        "main": "apps/demoapp/src/index.ts",
+        "tsConfig": "apps/demoapp/tsconfig.app.json",
+        "assets": ["apps/demoapp/*.md"]
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "demoapp:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/demoapp/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/demoapp"],
+      "options": {
+        "jestConfig": "apps/demoapp/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

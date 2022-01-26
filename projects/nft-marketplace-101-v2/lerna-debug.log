@@ -1,0 +1,93 @@
+0 silly argv {
+0 silly argv   _: [ 'bootstrap' ],
+0 silly argv   'ignore-scripts': true,
+0 silly argv   ignoreScripts: true,
+0 silly argv   'force-local': true,
+0 silly argv   forceLocal: true,
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'C:\\Users\\rober\\AppData\\Roaming\\npm-cache\\_npx\\20288\\node_modules\\lerna\\cli.js'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2
+3 info versioning independent
+4 silly npmConfig {
+4 silly npmConfig   registry: undefined,
+4 silly npmConfig   npmClient: 'npm',
+4 silly npmConfig   npmClientArgs: [ '--ignore-scripts' ],
+4 silly npmConfig   mutex: undefined
+4 silly npmConfig }
+5 info Bootstrapping 2 packages
+6 silly hasDependencyInstalled @debay/client @types/faker
+7 silly hasDependencyInstalled @debay/contracts @types/faker
+8 silly hasDependencyInstalled @debay/client @types/node
+9 silly hasDependencyInstalled @debay/contracts @types/node
+10 silly hasDependencyInstalled @debay/client @types/react
+11 silly hasDependencyInstalled @debay/client @typescript-eslint/eslint-plugin
+12 silly hasDependencyInstalled @debay/contracts @typescript-eslint/eslint-plugin
+13 silly hasDependencyInstalled @debay/client @typescript-eslint/parser
+14 silly hasDependencyInstalled @debay/contracts @typescript-eslint/parser
+15 silly hasDependencyInstalled @debay/client autoprefixer
+16 silly hasDependencyInstalled @debay/client eslint
+17 silly hasDependencyInstalled @debay/contracts eslint
+18 silly hasDependencyInstalled @debay/client eslint-config-next
+19 silly hasDependencyInstalled @debay/client eslint-config-prettier
+20 silly hasDependencyInstalled @debay/contracts eslint-config-prettier
+21 silly hasDependencyInstalled @debay/client eslint-plugin-react
+22 silly hasDependencyInstalled @debay/client eslint-plugin-react-hooks
+23 silly hasDependencyInstalled @debay/client faker
+24 silly hasDependencyInstalled @debay/contracts faker
+25 silly hasDependencyInstalled @debay/client postcss
+26 silly hasDependencyInstalled @debay/client prettier
+27 silly hasDependencyInstalled @debay/client typescript
+28 silly hasDependencyInstalled @debay/contracts typescript
+29 silly hasDependencyInstalled @debay/client @headlessui/react
+30 silly hasDependencyInstalled @debay/client @heroicons/react
+31 silly hasDependencyInstalled @debay/client @metamask/detect-provider
+32 silly hasDependencyInstalled @debay/client @popperjs/core
+33 silly hasDependencyInstalled @debay/client @tailwindcss/typography
+34 silly hasDependencyInstalled @debay/client daisyui
+35 silly hasDependencyInstalled @debay/client eip1193-provider
+36 silly hasDependencyInstalled @debay/client next
+37 silly hasDependencyInstalled @debay/client react
+38 silly hasDependencyInstalled @debay/client react-async-hook
+39 silly hasDependencyInstalled @debay/client react-dom
+40 silly hasDependencyInstalled @debay/client swiper
+41 silly hasDependencyInstalled @debay/client tailwindcss
+42 silly hasDependencyInstalled @debay/client web3
+43 silly hasDependencyInstalled @debay/contracts @nomiclabs/hardhat-ethers
+44 silly hasDependencyInstalled @debay/contracts @nomiclabs/hardhat-etherscan
+45 silly hasDependencyInstalled @debay/contracts @nomiclabs/hardhat-waffle
+46 silly hasDependencyInstalled @debay/contracts @typechain/ethers-v5
+47 silly hasDependencyInstalled @debay/contracts @typechain/hardhat
+48 silly hasDependencyInstalled @debay/contracts @types/chai
+49 silly hasDependencyInstalled @debay/contracts @types/chai-as-promised
+50 silly hasDependencyInstalled @debay/contracts @types/mocha
+51 silly hasDependencyInstalled @debay/contracts chai
+52 silly hasDependencyInstalled @debay/contracts chai-as-promised
+53 silly hasDependencyInstalled @debay/contracts chai-bignumber
+54 silly hasDependencyInstalled @debay/contracts dotenv
+55 silly hasDependencyInstalled @debay/contracts eslint-config-standard
+56 silly hasDependencyInstalled @debay/contracts eslint-plugin-import
+57 silly hasDependencyInstalled @debay/contracts eslint-plugin-node
+58 silly hasDependencyInstalled @debay/contracts eslint-plugin-prettier
+59 silly hasDependencyInstalled @debay/contracts eslint-plugin-promise
+60 silly hasDependencyInstalled @debay/contracts ethereum-waffle
+61 silly hasDependencyInstalled @debay/contracts ethers
+62 silly hasDependencyInstalled @debay/contracts hardhat
+63 silly hasDependencyInstalled @debay/contracts hardhat-gas-reporter
+64 silly hasDependencyInstalled @debay/contracts solhint
+65 silly hasDependencyInstalled @debay/contracts solidity-coverage
+66 silly hasDependencyInstalled @debay/contracts ts-node
+67 silly hasDependencyInstalled @debay/contracts typechain
+68 silly hasDependencyInstalled @debay/contracts @openzeppelin/contracts
+69 silly root dependencies {}
+70 silly leaf dependencies {}
+71 info Symlinking packages and binaries
+72 silly resolveSymlink C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2\packages\client\node_modules\@debay\contracts
+73 error Error: EACCES: permission denied, lstat 'C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2\packages\client\node_modules\@debay\contracts'
+73 error     at Object.lstatSync (fs.js:1119:3)
+73 error     at Object.lstatSync (C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2\node_modules\graceful-fs\polyfills.js:312:16)
+73 error     at resolveSymbolicLink (C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2\node_modules\@lerna\resolve-symlink\resolve-symlink.js:27:20)
+73 error     at resolveWindowsSymlink (C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2\node_modules\@lerna\resolve-symlink\resolve-symlink.js:43:35)
+73 error     at resolveSymlink (C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2\node_modules\@lerna\resolve-symlink\resolve-symlink.js:16:14)
+73 error     at C:\Users\rober\Documents\Projects\learning-solidity\projects\nft-marketplace-101-v2\node_modules\@lerna\symlink-dependencies\symlink-dependencies.js:52:32
