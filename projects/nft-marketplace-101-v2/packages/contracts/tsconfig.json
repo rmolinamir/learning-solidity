@@ -5,6 +5,7 @@
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
+    "declarationMap": true,
     "composite": true
   },
   "include": ["./scripts", "./tests", "./src", "./hardhat"],

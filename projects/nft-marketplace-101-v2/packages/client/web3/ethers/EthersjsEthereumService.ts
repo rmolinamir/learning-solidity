@@ -1,5 +1,5 @@
 import detectEthereumProvider from '@metamask/detect-provider';
-import { ethers } from "ethers";
+import { ethers } from 'ethers';
 import { EthereumProvider } from '../common/EthereumProvider';
 import { ProviderRpcError, ProviderAccounts } from 'eip1193-provider';
 import { IEthereumService } from '../common/IEthereumService';

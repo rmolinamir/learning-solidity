@@ -11,7 +11,6 @@ type ConnectProps = { children?: React.ReactNode; };
 export default function Connect({ children = 'Connect', }: ConnectProps) {
 
   const { state, dispatch, } = useWeb3();
-  console.log('state: ', state);
 
   async function onClickHandler() {
     await connect(dispatch);

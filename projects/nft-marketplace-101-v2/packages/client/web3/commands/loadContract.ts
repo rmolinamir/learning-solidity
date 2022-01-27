@@ -17,6 +17,7 @@ export async function loadContract(dispatch: Web3Dispatch): Promise<void> {
     if (ethereumService) {
 
       const contract = await EthersjsSmartContract.loadFrom(config.deBayContractAddres, ethereumService) as unknown as NftMarketplaceContract;
+      console.log('contract: ', contract);
   
       dispatch({ type: Web3ActionType.LoadContract, payload: { contract, },});
 

@@ -1,4 +1,4 @@
-import { DeBay__factory, DeBay} from '@debay/contracts';
+import { DeBay__factory, DeBay } from '@debay/contracts';
 import { SmartContract } from '../common/SmartContract';
 import { EthersjsEthereumService } from './EthersjsEthereumService';
 
@@ -20,7 +20,7 @@ export class EthersjsSmartContract implements SmartContract<DeBay['functions']> 
 
     const signer = service.web3Provider.getSigner();
 
-    const contract = DeBay__factory.connect(address, signer);
+    const contract = await DeBay__factory.connect(address, signer).deployed();
 
     return new EthersjsSmartContract(address, contract);
 

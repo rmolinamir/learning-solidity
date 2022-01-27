@@ -15,7 +15,7 @@ export async function getContractData(dispatch: Web3Dispatch, contract: Web3Stat
 
       const nftList: string[] = [];
 
-      for (let i = 0; i < supply - 1; i++) {
+      for (let i = 0; i < supply; i++) {
 
         const [tokenId] = await contract.methods.tokenByIndex(i);
         const [nft] = await contract.methods.tokenURI(tokenId);

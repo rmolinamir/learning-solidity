@@ -8,9 +8,5 @@
     "clean-dist": "rm -fr packages/*/*.tsbuildinfo && rm -fr packages/*/dist && rm -fr packages/*/.serverless",
     "clean-incl-deps": "npm run clean && npm run clean-deps",
     "clean-output": "rm -fr output && rm -fr */**/output"
-  },
-  "devDependencies": {
-    "@nrwl/next": "^13.5.3",
-    "nx": "^13.5.2"
   }
 }
